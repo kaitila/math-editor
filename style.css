@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.editor {
+    margin-top: 0.625rem;
+    padding: 0.5rem;
+    border: 1px solid rgb(217, 216, 216);
+    border-radius: 0.4em;
+    height: 50vh;
+    width: 50vw;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.1em;
+    max-height: 50vh;
+}
+
+.editor:focus {
+    outline: none;
+    border: 1px solid rgb(111, 111, 111);
+}
+
+.tex {
+    /*border: 1px solid black;*/
+    display: inline-block;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    gap: 0.25em;
+}
+
+.inputField {
+    height: 2rem;
+    border: 1px solid transparent;
+    background-color: rgb(217, 216, 216);
+    border-radius: 0.4rem;
+    width: 20rem;
+    font-size: 1.1rem;
+    color: rgb(58, 58, 58);
+    font-family: 'Poppins', sans-serif;
+    padding: 0.25rem;
+}
+
+.inputField:focus {
+    outline: none;
+    border: 1px solid rgb(111, 111, 111);
+}
+
+.btn {
+    height: 2rem;
+    padding: 0.25rem 1rem 0.125rem 1rem;
+    border: 1px solid transparent;
+    background-color: rgb(132, 132, 132);
+    border-radius: 0.4rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn:hover {
+    background-color: rgb(164, 164, 164);
+}
+
+.btn:active {
+    background-color: rgb(92, 92, 92);
+}
+
+.selected {
+    border: 1px solid black;
+    border-radius: 2px;
+}

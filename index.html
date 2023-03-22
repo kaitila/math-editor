@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>Mathedemo</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script src="script.js" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+  <div class="upper">
+    <div class="right">
+      <input type="text" name="tex" id="texInput" class="inputField" placeholder="Add LaTeX">
+      <input type="button" value="Add" id="addBtn" class="btn">
+    </div>
+    <div class="left">
+      <input type="text" name="edit" id="editInput" class="inputField right" placeholder="Edit LaTeX">
+      <input type="button" value="Edit" id="editBtn" class="btn">
+      <input type="button" value="Cancel" id="cancelBtn" class="btn">
+    </div>
+  </div>
+  <div contenteditable="true" class="editor" id="editor" spellcheck="false"></div>
+</div>
+
+<input type="radio" id="newLine" name="option" value="$$" checked="true">
+<label for="newLine">Newline</label>
+<input type="radio" id="inLine" name="option" value="$">
+<label for="inLine">Inline</label>
+
+</body>
+</html>
