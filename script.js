@@ -9,20 +9,6 @@ document.getElementById('editBtn').onclick = () => update(editInput.value);
 document.getElementById('cancelBtn').onclick = () => cancel();
 editor.onclick = () => cancel();
 
-editor.addEventListener('focus', () => {
-    for(let i = document.getElementsByClassName('tex').length - 1; i >= 0; i--) {
-        if(!document.getElementsByClassName('tex')[i].classList.contains('active')) {
-            document.getElementsByClassName('tex')[i].classList.add('active');
-        }
-    }
-});
-
-editor.addEventListener('blur', () => {
-    for(let i = document.getElementsByClassName('active').length - 1; i >= 0; i--) {
-        document.getElementsByClassName('active')[i].classList.remove('active');
-    }
-})
-
 //prefix for newline / inline.
 pref = '$$';
 //caret position
@@ -83,6 +69,20 @@ document.body.onmouseup = () => {
         getCaret();
     }
 }
+
+editor.addEventListener('focus', () => {
+    for(let i = document.getElementsByClassName('tex').length - 1; i >= 0; i--) {
+        if(!document.getElementsByClassName('tex')[i].classList.contains('active')) {
+            document.getElementsByClassName('tex')[i].classList.add('active');
+        }
+    }
+});
+
+editor.addEventListener('blur', () => {
+    for(let i = document.getElementsByClassName('active').length - 1; i >= 0; i--) {
+        document.getElementsByClassName('active')[i].classList.remove('active');
+    }
+})
 
 function add(tex) {
     //Html for tex div
