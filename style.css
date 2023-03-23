@@ -1,28 +1,56 @@
+:root {
+    --clr-bg-dark: rgb(20, 21, 31);
+    --clr-bg-light: rgb(242, 242, 241);
+    --clr-editor-light: #FFF;
+    --clr-editor-dark: rgb(18, 18, 18);
+    --clr-tex-light: #000;
+    --clr-tex-dark: #FFF;
+    --clr-grey-100: rgb(217, 216, 216);
+    --clr-grey-200: rgb(164, 164, 164);
+    --clr-grey-300: rgb(132, 132, 132);
+    --clr-grey-400: rgb(111, 111, 111);
+    --clr-grey-500: rgb(92, 92, 92);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    background-color: var(--clr-bg-light);
+}
+
 .editor {
     margin-top: 0.625rem;
     padding: 0.5rem;
-    border: 1px solid rgb(217, 216, 216);
+    border: 1px solid var(--clr-grey-100);
     border-radius: 0.4em;
     min-height: 50vh;
     width: 50vw;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1em;
+    background-color: var(--clr-editor-light);
 }
 
 .editor:focus {
     outline: none;
-    border: 1px solid rgb(111, 111, 111);
+    border: 1px solid var(--clr-grey-400);
 }
 
 .tex {
-    /*border: 1px solid black;*/
+    border: 1px solid transparent;
     display: inline-block;
+}
+
+.active {
+    box-shadow: 0 0 0.1rem black;
+}
+
+.MathJax_Display {
+    color: var(--clr-tex-light) !important;
+    margin: 0.4rem 0 !important;
 }
 
 .container {
@@ -43,7 +71,7 @@
 .inputField {
     height: 2rem;
     border: 1px solid transparent;
-    background-color: rgb(217, 216, 216);
+    background-color: var(--clr-grey-100);
     border-radius: 0.4rem;
     width: 20rem;
     font-size: 1.1rem;
@@ -54,33 +82,34 @@
 
 .inputField:focus {
     outline: none;
-    border: 1px solid rgb(111, 111, 111);
+    border: 1px solid var(--clr-grey-400);
 }
 
 .btn {
     height: 2rem;
     padding: 0.25rem 1rem 0.125rem 1rem;
     border: 1px solid transparent;
-    background-color: rgb(132, 132, 132);
+    background-color: var(--clr-grey-300);
     border-radius: 0.4rem;
     color: white;
     font-family: 'Poppins', sans-serif;
 }
 
 .btn:hover {
-    background-color: rgb(164, 164, 164);
+    background-color: var(--clr-grey-200);
 }
 
 .btn:active {
-    background-color: rgb(92, 92, 92);
+    background-color: var(--clr-grey-500);
 }
 
 .btn:focus {
     outline: none;
-    background-color: rgb(164, 164, 164);
+    /*background-color: var(--clr-grey-200);*/
 }
 
 .selected {
     border: 1px solid black;
     border-radius: 2px;
+    box-shadow: none;
 }
