@@ -9,11 +9,10 @@
     padding: 0.5rem;
     border: 1px solid rgb(217, 216, 216);
     border-radius: 0.4em;
-    height: 50vh;
+    min-height: 50vh;
     width: 50vw;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1em;
-    max-height: 50vh;
 }
 
 .editor:focus {
@@ -74,6 +73,11 @@
 
 .btn:active {
     background-color: rgb(92, 92, 92);
+}
+
+.btn:focus {
+    outline: none;
+    background-color: rgb(164, 164, 164);
 }
 
 .selected {

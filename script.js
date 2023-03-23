@@ -9,9 +9,6 @@ document.getElementById('editBtn').onclick = () => update(editInput.value);
 document.getElementById('cancelBtn').onclick = () => cancel();
 editor.onclick = () => cancel();
 
-//editor.addEventListener('focus', () => editor.classList.add('focus'));
-//editor.addEventListener('blur', () => editor.classList.remove('focus'));
-
 //prefix for newline / inline.
 pref = '$$';
 //caret position
@@ -35,6 +32,44 @@ eqs = [];
 //currently selected equation index
 sel = null;
 
+editor.addEventListener('keydown', (e) => {
+    if(e.ctrlKey && e.key == 'e') {
+        e.preventDefault();
+        texInput.focus();  
+    }
+})
+
+texInput.addEventListener('keydown', (e) => {
+    if(e.key == 'Enter') {
+        e.preventDefault();
+        add(texInput.value);
+    }
+})
+
+editInput.addEventListener('keydown', (e) => {
+    if(e.key == 'Enter') {
+        e.preventDefault();
+        update(editInput.value);
+    }
+
+    if(e.key == 'Escape') {
+        e.preventDefault();
+        cancel();
+    }
+})
+
+document.body.onkeyup = () => {
+    if(document.activeElement.id == 'editor') {
+        getCaret();
+    }
+}
+
+document.body.onmouseup = () => {
+    if(document.activeElement.id == 'editor') {
+        getCaret();
+    }
+}
+
 function add(tex) {
     //Html for tex div
     const texHtml = '<div contenteditable="false" class="tex" id="' + eq + '">'+ pref + tex + pref +'</div>';
@@ -42,8 +77,6 @@ function add(tex) {
     //store raw latex in eqs array
     eqs.push(tex)
 
-    //change focus to editor
-    editor.focus();
     setCaret();
     pasteHtmlAtCaret(texHtml);
 
@@ -83,6 +116,7 @@ function select(div) {
     sel = div.id;
     div.classList.add('selected');
     editInput.value = eqs[sel];
+    editInput.focus();
 }
 
 function cancel() {
@@ -92,19 +126,8 @@ function cancel() {
     document.getElementById(sel).classList.remove('selected');
     sel = null;
     editInput.value = '';
-}
 
-
-document.body.onkeyup = () => {
-    if(document.activeElement.id == 'editor') {
-        getCaret();
-    }
-}
-
-document.body.onmouseup = () => {
-    if(document.activeElement.id == 'editor') {
-        getCaret();
-    }
+    setCaret();
 }
 
 function pasteHtmlAtCaret(html) {
