@@ -1,7 +1,7 @@
 import { pasteHtmlAtCaret } from './utils.js';
 
 export class Math {
-    constructor(window, document, caret, texInput, editInput) {
+    constructor(window, document, caret, texInput) {
         this.window = window;
         this.document = document;
 
@@ -13,7 +13,7 @@ export class Math {
         this.prefix = '$$';
 
         this.texInput = texInput;
-        this.editInput = editInput;
+        this.mode = 'add';
     }
 
     add(tex) {
@@ -47,14 +47,22 @@ export class Math {
 
     update(tex) {
         if(tex == '') {
-            try {this.document.getElementById(this.sel).this.remove()}catch{}
-            this.caret.setCaret();
+            try {this.document.getElementById(this.sel).remove()}catch{}
+            try {this.caret.setCaret()} catch {
+                this.caret.endOffset = 0;
+                this.caret.endContainer = this.document.getElementById('editor');
+                this.caret.setCaret();
+            }
+
+            this.sel = null;
+            this.mode = 'add';
             return;
         }
     
         if(this.sel == null) {
             this.editInput.value = '';
             this.caret.setCaret();
+            this.mode = 'add';
             return;
         }
     
@@ -71,9 +79,11 @@ export class Math {
         }
         
         this.sel = div.id;
+        this.mode = 'edit';
+
         div.classList.add('selected');
-        this.editInput.value = this.eqs[this.sel];
-        this.editInput.focus();
+        this.texInput.value = this.eqs[this.sel];
+        this.texInput.focus();
     }
 
     cancel() {
@@ -82,7 +92,8 @@ export class Math {
         }
         this.document.getElementById(this.sel).classList.remove('selected');
         this.sel = null;
-        this.editInput.value = '';
+        this.texInput.value = '';
+        this.mode = 'add';
     
         this.caret.setCaret();
     }

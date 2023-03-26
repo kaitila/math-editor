@@ -60,8 +60,6 @@ export function deleteMatching(e) {
     const pos = e.target.selectionStart;
     const val = [...e.target.value];
         
-    const char = val.slice(pos-1, pos)[0];
-    const closeChar = closeChars.get(char);
     const matching = getMatching(e.target.value, pos - 1);
 
     if(matching == -1) return

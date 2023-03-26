@@ -62,7 +62,7 @@ body {
 
 .upper {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     padding: 0;
     margin: 0;
     gap: 0.25em;
@@ -78,11 +78,14 @@ body {
     color: rgb(58, 58, 58);
     font-family: 'Poppins', sans-serif;
     padding: 0.25rem;
+    transition: width 0.2s, height 0.2s;
 }
 
 .inputField:focus {
+    transition: width 0.2s, height 0.2s;
     outline: none;
     border: 1px solid var(--clr-grey-400);
+    width: 30rem;
 }
 
 .btn {
@@ -106,6 +109,15 @@ body {
 .btn:focus {
     outline: none;
     /*background-color: var(--clr-grey-200);*/
+}
+
+#cancelBtn {
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+#cancelBtn.hide {
+    opacity: 0;
 }
 
 .selected {
