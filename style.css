@@ -79,6 +79,7 @@ body {
     font-family: 'Poppins', sans-serif;
     padding: 0.25rem;
     transition: width 0.2s, height 0.2s;
+    transition-delay: 0.1s;
 }
 
 .inputField:focus {

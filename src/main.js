@@ -12,10 +12,13 @@ const caret = new Caret(editor, window);
 const math = new Math(window, document, caret, texInput);
 
 //add events to buttons
-addBtn.onclick = () => {
-    if (math.mode == 'add') math.add(texInput.value);
-    if (math.mode == 'edit') math.update(texInput.value);
-}
+addBtn.addEventListener('click', () => {
+    if(math.mode == 'add') {
+        math.add(texInput.value);
+    }
+
+    if(math.mode == 'edit') math.update(texInput.value);
+});
 
 cancelBtn.onclick = () => math.cancel();
 
@@ -49,15 +52,15 @@ texInput.addEventListener('focus', () => {
         addBtn.value = 'Edit';
         cancelBtn.classList.remove('hide');
     }
-})
+});
 
 texInput.addEventListener('blur', () => {
     math.mode = 'add';
     addBtn.value = 'Add';
     cancelBtn.classList.add('hide');
-})
+});
 
-editor.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', (e) => {
     if(e.ctrlKey && e.key == 'e') {
         e.preventDefault();
         texInput.focus();
