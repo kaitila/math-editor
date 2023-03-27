@@ -1,4 +1,2 @@
-test/index.html
-test/script.js
-test/style.css
-test/caret.js
+test/*
+svg/*

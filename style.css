@@ -1,15 +1,31 @@
 :root {
-    --clr-bg-dark: rgb(20, 21, 31);
-    --clr-bg-light: rgb(242, 242, 241);
-    --clr-editor-light: #FFF;
-    --clr-editor-dark: rgb(18, 18, 18);
-    --clr-tex-light: #000;
-    --clr-tex-dark: #FFF;
+    --clr-bg: rgb(242, 242, 242);
+    --clr-editor: #FFF;
+    --clr-tex: #000;
+    
+    --clr-grey-50: rgb(230, 230, 230);
     --clr-grey-100: rgb(217, 216, 216);
     --clr-grey-200: rgb(164, 164, 164);
     --clr-grey-300: rgb(132, 132, 132);
     --clr-grey-400: rgb(111, 111, 111);
     --clr-grey-500: rgb(92, 92, 92);
+    --clr-grey-600: rgb(58, 58, 58);
+
+    --clr-radio: #1e90ff;
+}
+
+.darkmode {
+    --clr-bg: rgb(15, 15, 15);
+    --clr-editor: rgb(30, 30, 30);
+    --clr-tex: rgb(230, 230, 230);
+
+    --clr-grey-50: rgb(30, 30, 30);
+    --clr-grey-100: rgb(64, 64, 64);
+    --clr-grey-200: rgb(92, 92, 92);
+    --clr-grey-300: rgb(132, 132, 132);
+    --clr-grey-400: rgb(111, 111, 111);
+    --clr-grey-600: rgb(230, 230, 230);
+    
 }
 
 * {
@@ -19,10 +35,117 @@
 }
 
 body {
-    background-color: var(--clr-bg-light);
+    background-color: var(--clr-bg);
+}
+
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: var(--clr-grey-100); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 3rem; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.option-container {
+    display: flex;
+    justify-content: left;
+    margin-left: 1rem;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    background-color: var(--clr-grey-50);
+    width: 17.5rem;
+    padding: 0.25rem;
+}
+
+.option-container span {
+    white-space: nowrap;
+    color: var(--clr-grey-600);
+}
+
+.radio-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--clr-grey-100);
+    width: 11.5rem;
+    height: 2.5rem;
+    border-radius: 2.5rem;
+    box-shadow: inset 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.sidebar input[type="radio"] {
+    appearance: none;
+    display: none;
+}
+
+.sidebar label:hover {
+    cursor: pointer;
+}
+
+.sidebar label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    height: 2rem;
+    width: 5rem;
+    text-align: center;
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: linear 0.3s;
+    color: var(--clr-grey-600);
+}
+
+.sidebar input[type="radio"]:checked + label {
+    background-color: var(--clr-radio);
+    color: #FFF;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+#close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin: 0.25rem;
+}
+
+#close:hover {
+    /* font-size: 2.125rem; */
+    cursor: pointer;
+    background-color: var(--clr-grey-50);
+}
+
+#open {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.25rem;
+    margin: 0.25rem;
+}
+
+#open:hover {
+    cursor: pointer;
+    background-color: var(--clr-grey-50);
 }
 
 .editor {
+    color: var(--clr-tex);
     margin-top: 0.625rem;
     padding: 0.5rem;
     border: 1px solid var(--clr-grey-100);
@@ -31,7 +154,7 @@ body {
     width: 50vw;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1em;
-    background-color: var(--clr-editor-light);
+    background-color: var(--clr-editor);
 }
 
 .editor:focus {
@@ -45,11 +168,11 @@ body {
 }
 
 .active {
-    box-shadow: 0 0 0.1rem black;
+    box-shadow: 0 0 0.1rem var(--clr-grey-600);
 }
 
 .MathJax_Display {
-    color: var(--clr-tex-light) !important;
+    color: var(--clr-tex) !important;
     margin: 0.4rem 0 !important;
 }
 
@@ -75,7 +198,7 @@ body {
     border-radius: 0.4rem;
     width: 20rem;
     font-size: 1.1rem;
-    color: rgb(58, 58, 58);
+    color: var(--clr-grey-600);
     font-family: 'Poppins', sans-serif;
     padding: 0.25rem;
     transition: width 0.2s, height 0.2s;
@@ -122,7 +245,7 @@ body {
 }
 
 .selected {
-    border: 1px solid black;
+    border: 1px solid var(--clr-grey-600);
     border-radius: 2px;
     box-shadow: none;
 }
