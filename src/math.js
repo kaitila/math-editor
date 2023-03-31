@@ -1,7 +1,7 @@
 import { pasteHtmlAtCaret } from './utils.js';
 
 export class Math {
-    constructor(window, document, caret, texInput) {
+    constructor(window, document, caret, texInput, pageHandler) {
         this.window = window;
         this.document = document;
 
@@ -14,6 +14,8 @@ export class Math {
 
         this.texInput = texInput;
         this.mode = 'add';
+
+        this.pageHandler = pageHandler;
     }
 
     add(tex) {
@@ -22,13 +24,13 @@ export class Math {
             return;
         }
         //Html for tex div
-        this.texHtml = '<div contenteditable="false" class="tex active" id="' + this.eq + '">'+ this.prefix + tex + this.prefix +'</div>';
+        const texHtml = '<div contenteditable="false" class="tex active" id="' + this.eq + '">'+ this.prefix + tex + this.prefix +'</div>';
     
         //store raw latex in eqs array
         this.eqs.push(tex)
     
         this.caret.setCaret();
-        pasteHtmlAtCaret(this.texHtml, this.window, this.document);
+        pasteHtmlAtCaret(texHtml, this.window, this.document);
     
         const texDiv = this.document.getElementById(this.eq);
     

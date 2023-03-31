@@ -1,12 +1,15 @@
 export class Caret {
-    constructor(elem, window) {
-        this.endContainer = elem;
+    constructor() {
+        this.endContainer = document.getElementById('editor');
         this.endOffset = 0;
-        this.window = window;
     }
 
     setCaret() {
-        this.window.getSelection().collapse(this.endContainer, this.endOffset);
+        try{
+            window.getSelection().collapse(this.endContainer, this.endOffset)
+        }catch{
+            window.getSelection().collapse(document.getElementById('editor'), 0);
+        }
     }
 
     getCaret() {
@@ -15,7 +18,7 @@ export class Caret {
     }
 }
 
-export function pasteHtmlAtCaret(html, window, document) {
+export function pasteHtmlAtCaret(html) {
     var sel, range;
     if (window.getSelection) {
         // IE9 and non-IE
@@ -50,3 +53,16 @@ export function pasteHtmlAtCaret(html, window, document) {
     }
 }
 
+export function openOptions(pageHandler, page) {
+    const inputField = document.getElementById('titleEditInput');
+    document.querySelector('.shader').style.display = 'block';
+    document.querySelector('.page-options').style.display = 'flex';
+    inputField.value = page.title;
+    inputField.focus();
+    pageHandler.edited = page;
+}
+
+export function closeOptions() {
+    document.querySelector('.page-options').style.display = 'none';
+    document.querySelector('.shader').style.display = 'none';
+}
