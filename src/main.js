@@ -1,6 +1,5 @@
-import { closeBrackets, deleteMatching } from "./brackets.js";
 import { PageHandler } from "./page.js";
-import { closeOptions } from "./utils.js";
+import { closeOptions, hidePlaceholder } from "./utils.js";
 
 //get input field elements
 const texInput = document.getElementById('texInput');
@@ -8,45 +7,66 @@ const editor = document.getElementById('editor');
 const addBtn = document.getElementById('addBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const addPage = document.getElementById('addPage');
+const mathInput = document.getElementById('mathInput');
 
-const pageHandler = new PageHandler(editor);
+// Math input with MathQuill
+const MQ = MathQuill.getInterface(2);
+const mathInputField = MQ.MathField(mathInput);
+
+const pageHandler = new PageHandler(editor, mathInputField);
 window.onload = () => pageHandler.addPage('Untitled');
 
-//add events to buttons
+// Add events to buttons
 addBtn.addEventListener('click', () => {
     if (pageHandler.active.inputMode == 'add') pageHandler.active.addLatex(texInput.value);
     if (pageHandler.active.inputMode == 'edit') pageHandler.active.update(texInput.value);
     texInput.value = '';
+    mathInputField.latex('');
 });
 
 cancelBtn.onclick = () => pageHandler.active.cancel();
+
+// Get raw latex value from mathInput to texInput, and vice-versa
+mathInput.addEventListener('keyup', () => texInput.value = mathInputField.latex());
+texInput.addEventListener('keyup', () => mathInputField.latex(texInput.value));
 
 //radio buttons
 document.querySelectorAll('.prefix').forEach(elem => {
     elem.addEventListener('click', () => pageHandler.setPrefix(elem.value));
 });
 
-texInput.addEventListener('keydown', (e) => {
+mathInput.addEventListener('keydown', (e) => {
     switch(e.key) {
         case 'Enter':
             e.preventDefault();
             if (pageHandler.active.inputMode == 'add') pageHandler.active.addLatex(texInput.value);
             if (pageHandler.active.inputMode == 'edit') pageHandler.active.update(texInput.value);
             texInput.value = '';
-            break;
-        case 'Backspace':
-            deleteMatching(e);
-            break;
-        case 'Delete':
-            deleteMatching(e);
+            mathInputField.latex('');
             break;
         case 'Escape':
-            if (pageHandler.active.inputMode == 'edit') pageHandler.active.cancel();
+            pageHandler.active.cancel();
             break;
     }
 });
 
-texInput.addEventListener('input', (e) => closeBrackets(e));
+mathInputField.el().querySelector('textarea').addEventListener('focusin', () => {
+    if(pageHandler.active.inputMode == 'edit') {
+        addBtn.value = 'Edit';
+        cancelBtn.classList.remove('hide');
+    }
+
+    // Hide mathInput placeholder
+    hidePlaceholder();
+    texInput.classList.add('math-active');
+});
+
+// Handle focus and blur of math input
+mathInputField.el().querySelector('textarea').addEventListener('focusout', () => {
+    addBtn.value = 'Add';
+    cancelBtn.classList.add('hide');
+});
+
 texInput.addEventListener('focus', () => {
     if(pageHandler.active.inputMode == 'edit') {
         addBtn.value = 'Edit';
@@ -58,11 +78,12 @@ texInput.addEventListener('blur', () => {
     addBtn.value = 'Add';
     cancelBtn.classList.add('hide');
 });
+//-------------------------------------------------------------------
 
 document.addEventListener('keydown', (e) => {
     if(e.ctrlKey && e.key == 'e') {
         e.preventDefault();
-        texInput.focus();
+        mathInputField.focus();
     }
 });
 
@@ -77,6 +98,7 @@ editor.addEventListener('click', () => {
     pageHandler.save();
 });
 
+// Highlight equation divs
 editor.addEventListener('focus', () => {
     document.querySelectorAll('.tex').forEach(elem => {
         if(!elem.classList.contains('active')) {
@@ -150,3 +172,5 @@ function closePageCreate() {
     shader.style.display = 'none';
     titleInput.value = '';
 }
+
+

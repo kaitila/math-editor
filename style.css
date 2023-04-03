@@ -13,6 +13,7 @@
     --clr-grey-600: rgb(58, 58, 58);
 
     --clr-radio: #1e90ff;
+    --placeholder: inline-block;
 }
 
 .darkmode {
@@ -207,31 +208,68 @@ body {
 
 .upper {
     display: flex;
-    justify-content: left;
-    padding: 0;
-    margin: 0;
     gap: 0.25em;
+    align-items: center;
 }
 
-.inputField {
-    height: 2rem;
-    border: 1px solid transparent;
-    background-color: var(--clr-grey-100);
-    border-radius: 0.4rem;
+#mathInput {
     width: 20rem;
-    font-size: 1.1rem;
-    color: var(--clr-grey-600);
-    font-family: 'Poppins', sans-serif;
+    min-height: 3.5rem;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
     padding: 0.25rem;
-    transition: width 0.2s, height 0.2s;
-    transition-delay: 0.1s;
+    font-size: 1.25rem;
+    border-radius: 0.4rem;
+    background-color: var(--clr-grey-100);
+    color: var(--clr-grey-600);
+    z-index: 2;
 }
 
-.inputField:focus {
-    transition: width 0.2s, height 0.2s;
+.mq-focused {
+    box-shadow: none !important;
+    border: 1px solid var(--clr-grey-400) !important;
+    /* border-radius: 0.4rem !important; */
+}
+
+.mq-math-mode::before {
+    content: 'Add LaTeX (Ctrl + E)';
+    display: var(--placeholder);
+    font-family: 'Poppins', serif;
+    font-size: 1.1rem;
+    width: 25rem;
+}
+
+.mq-focused::before {
+    content: '';
+    display: none;
+}
+
+#texInput {
+    resize: none;
+    width: 0;
+    height: 0;
+    background-color: var(--clr-editor);
+    border: none;
+    border-radius: 0.4rem;
+    color: var(--clr-grey-600);
+    transition: width 0.2s;
+    transition-delay: height 0.2s;
+    z-index: 1;
+}
+
+#texInput.math-active {
+    width: 20rem;
+    height: 3.5rem;
+    opacity: 1;
+    transition: width 0.2s;
+    border: 1px solid transparent;
+    padding: 0.25rem;
+}
+
+#texInput:focus {
     outline: none;
     border: 1px solid var(--clr-grey-400);
-    width: 30rem;
 }
 
 .btn {

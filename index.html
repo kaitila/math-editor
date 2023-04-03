@@ -2,21 +2,31 @@
 <html>
 <head>
 <title>LaTeX editor</title>
+<!-- MathQuill -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js" type="text/javascript"></script>
 
+<!-- MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
 <script type="text/javascript"
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Local files -->
 <script src="src/main.js" type="module" defer></script>
 <script src="src/sidebar.js" defer></script>
-
 <link rel="stylesheet" href="style.css" />
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -84,10 +94,16 @@
   </div>
   <div class="right">
     <div class="upper">
+      <span id="mathInput" class="math-input"></span>
+      <textarea name="tex" id="texInput" cols="30" rows="4" class="view" placeholder="LaTeX"></textarea>
+      <input type="button" value="Add" id="addBtn" class="btn add">
+      <input type="button" value="Cancel" id="cancelBtn" class="btn hide">
+    </div>
+    <!-- <div class="upper">
         <input type="text" name="tex" id="texInput" class="inputField" placeholder="Add LaTeX (Ctrl + E)">
         <input type="button" value="Add" id="addBtn" class="btn add">
         <input type="button" value="Cancel" id="cancelBtn" class="btn hide">
-    </div>
+    </div> -->
       <div contenteditable="true" class="editor" id="editor" spellcheck="false"></div>
   </div>
 </div>

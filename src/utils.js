@@ -66,3 +66,11 @@ export function closeOptions() {
     document.querySelector('.page-options').style.display = 'none';
     document.querySelector('.shader').style.display = 'none';
 }
+
+export function showPlaceholder() {
+    document.documentElement.style.setProperty('--placeholder', 'inline-block');
+}
+
+export function hidePlaceholder() {
+    document.documentElement.style.setProperty('--placeholder', 'none');
+}

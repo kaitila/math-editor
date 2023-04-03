@@ -1,8 +1,8 @@
 import { Latex } from "./latex.js";
-import { Caret, openOptions, closeOptions } from "./utils.js";
+import { Caret, openOptions, showPlaceholder } from "./utils.js";
 
 class Page {
-    constructor(title, prefix) {
+    constructor(title, prefix, mathInputField) {
         this.title = title;
         this.content = '';
         this.div = document.createElement('div');
@@ -18,15 +18,27 @@ class Page {
         this.eq = 0;
         this.caret = new Caret();
         this.prefix = prefix;
+        this.mathInputField = mathInputField;
     }
     
     addLatex(tex) {
+        if(tex == '') {
+            this.caret.setCaret();
+            showPlaceholder();
+            this.texInput.classList.remove('math-active');
+            return;
+        }
+
         const latex = new Latex(tex, this.eq, this.prefix);
         this.caret.setCaret();
         latex.add();
         latex.div.addEventListener('click', (e) => this.select(e, latex));
         this.eqs.push(latex);
         this.eq += 1;
+        
+        // Show mathInput placeholder
+        showPlaceholder();
+        this.texInput.classList.remove('math-active');
     }
     
     select(e, latex) {
@@ -39,7 +51,8 @@ class Page {
         e.stopPropagation();
         this.inputMode = 'edit';
         this.texInput.value = latex.tex;
-        this.texInput.focus();
+        this.mathInputField.latex(latex.tex);
+        this.mathInputField.focus();
     }
 
     update(tex) {
@@ -58,7 +71,12 @@ class Page {
         try{this.sel.div.classList.remove('selected')}catch{}
         this.caret.setCaret();
         this.texInput.value = '';
+        this.mathInputField.latex('');
         this.inputMode = 'add';
+
+        //Show mathInput placeholder
+        showPlaceholder();
+        this.texInput.classList.remove('math-active');
     }
 
     setTitle(title) {
@@ -68,8 +86,9 @@ class Page {
 }
 
 export class PageHandler {
-    constructor(editor) {
+    constructor(editor, mathInputField) {
         this.editor = editor;
+        this.mathInputField = mathInputField;
         this.pageOpts = document.querySelector('.page-options');
         this.pages = document.getElementById('pages');
         this.pageList = [];
@@ -80,7 +99,7 @@ export class PageHandler {
     }
 
     addPage(title) {
-        const page = new Page(title, '$$');
+        const page = new Page(title, '$$', this.mathInputField);
         pages.insertBefore(page.div, document.getElementById('addPage'));
         this.pageList.push(page);
         page.div.addEventListener('click', () => this.load(page));
@@ -118,7 +137,7 @@ export class PageHandler {
     }   
 
     save() {
-        //Create a clone of #editor, replace .tex.innerHTML with LaTeX, get #editor.innerHTML.
+        //Create a clone of #editor, replace .tex.innerHTML with raw LaTeX, get #editor.innerHTML.
         let editorClone = this.editor.cloneNode(true);
         editorClone.querySelectorAll('.tex').forEach(elem => {
             elem.innerHTML = this.active.eqs[elem.id].prefix + this.active.eqs[elem.id].tex + this.active.eqs[elem.id].prefix;
