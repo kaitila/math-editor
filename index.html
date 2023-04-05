@@ -94,16 +94,12 @@
   </div>
   <div class="right">
     <div class="upper">
-      <span id="mathInput" class="math-input"></span>
-      <textarea name="tex" id="texInput" cols="30" rows="4" class="view" placeholder="LaTeX"></textarea>
-      <input type="button" value="Add" id="addBtn" class="btn add">
-      <input type="button" value="Cancel" id="cancelBtn" class="btn hide">
+      <span id="mathSpan" class="math-input math-editor" data-display="flex"><div class="math-label">Add LaTeX (Ctrl + E)</div></span>
+      <textarea name="tex" id="texInput" cols="30" rows="4" class="math-editor" placeholder="LaTeX" data-display="inline-block"></textarea>
+      <input type="button" value="Add" id="addBtn" class="btn add math-editor" data-display="inline-block">
+      <input type="button" value="Cancel" id="cancelBtn" class="btn hide math-editor" data-display="inline-block">
+      <div class="github"><a href="https://github.com/kaitila/math-editor"><i class="fa-brands fa-github"></i></a></div>
     </div>
-    <!-- <div class="upper">
-        <input type="text" name="tex" id="texInput" class="inputField" placeholder="Add LaTeX (Ctrl + E)">
-        <input type="button" value="Add" id="addBtn" class="btn add">
-        <input type="button" value="Cancel" id="cancelBtn" class="btn hide">
-    </div> -->
       <div contenteditable="true" class="editor" id="editor" spellcheck="false"></div>
   </div>
 </div>

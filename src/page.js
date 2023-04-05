@@ -1,105 +1,46 @@
 import { Latex } from "./latex.js";
-import { Caret, openOptions, showPlaceholder } from "./utils.js";
+import { selectMath } from "./mathEditor.js";
+import { openOptions, showPlaceholder } from "./utils.js";
 
 class Page {
-    constructor(title, prefix, mathInputField) {
+    constructor(title, prefix) {
         this.title = title;
         this.content = '';
         this.div = document.createElement('div');
         this.div.classList.add('page-card');
-        this.div.innerHTML = `<div class="text-container">${this.title}</div><div class="ellipsis"><i class="fa-solid fa-ellipsis fa-rotate-90"></i></div>`;  
-
-        this.sel = null;
-
-        this.texInput = document.getElementById('texInput');
-        this.inputMode = 'add';
+        this.div.innerHTML = `<div class="text-container">${this.title}</div><div class="ellipsis"><i class="fa-solid fa-ellipsis fa-rotate-90"></i></div>`;
 
         this.eqs = [];
         this.eq = 0;
-        this.caret = new Caret();
         this.prefix = prefix;
-        this.mathInputField = mathInputField;
-    }
-    
-    addLatex(tex) {
-        if(tex == '') {
-            this.caret.setCaret();
-            showPlaceholder();
-            this.texInput.classList.remove('math-active');
-            return;
-        }
-
-        const latex = new Latex(tex, this.eq, this.prefix);
-        this.caret.setCaret();
-        latex.add();
-        latex.div.addEventListener('click', (e) => this.select(e, latex));
-        this.eqs.push(latex);
-        this.eq += 1;
-        
-        // Show mathInput placeholder
-        showPlaceholder();
-        this.texInput.classList.remove('math-active');
-    }
-    
-    select(e, latex) {
-        if(this.sel != null) {
-            this.sel.div.classList.remove('selected');
-        }
-        
-        this.sel = latex;
-        latex.div.classList.add('selected');
-        e.stopPropagation();
-        this.inputMode = 'edit';
-        this.texInput.value = latex.tex;
-        this.mathInputField.latex(latex.tex);
-        this.mathInputField.focus();
-    }
-
-    update(tex) {
-        if(tex == '') {
-            try{this.sel.div.remove()}catch{}
-            this.sel = null;
-            this.cancel();
-            return
-        }
-
-        this.sel.edit(tex);
-        this.cancel();
-    }
-
-    cancel() {
-        try{this.sel.div.classList.remove('selected')}catch{}
-        this.caret.setCaret();
-        this.texInput.value = '';
-        this.mathInputField.latex('');
-        this.inputMode = 'add';
-
-        //Show mathInput placeholder
-        showPlaceholder();
-        this.texInput.classList.remove('math-active');
     }
 
     setTitle(title) {
         this.title = title;
         this.div.firstChild.innerHTML = title;
     }
+
+    addMath(latex) {
+        latex.div.addEventListener('click', (e) => selectMath(e, latex));
+        this.eqs.push(latex);
+        this.eq += 1;
+    }
 }
 
 export class PageHandler {
-    constructor(editor, mathInputField) {
+    constructor(editor) {
         this.editor = editor;
-        this.mathInputField = mathInputField;
-        this.pageOpts = document.querySelector('.page-options');
+
         this.pages = document.getElementById('pages');
         this.pageList = [];
-        this.index = null; //index of active page
-        this.active = null; //active page object
-        this.edited = null; //currently edited page
+        this.index = null; // index of active page
+        this.active = null; // active page object
+        this.edited = null; // currently edited page
         this.prefix = '$$';
     }
 
     addPage(title) {
-        const page = new Page(title, '$$', this.mathInputField);
+        const page = new Page(title, '$$');
         pages.insertBefore(page.div, document.getElementById('addPage'));
         this.pageList.push(page);
         page.div.addEventListener('click', () => this.load(page));

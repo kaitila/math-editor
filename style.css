@@ -212,7 +212,12 @@ body {
     align-items: center;
 }
 
-#mathInput {
+.math-label {
+    font-family: 'Poppins', serif;
+    font-size: 1.1rem;
+}
+
+#mathSpan {
     width: 20rem;
     min-height: 3.5rem;
     border: 1px solid transparent;
@@ -232,18 +237,18 @@ body {
     /* border-radius: 0.4rem !important; */
 }
 
-.mq-math-mode::before {
+/* .mq-math-mode::before {
     content: 'Add LaTeX (Ctrl + E)';
     display: var(--placeholder);
     font-family: 'Poppins', serif;
     font-size: 1.1rem;
     width: 25rem;
-}
+} */
 
-.mq-focused::before {
+/* .mq-focused::before {
     content: '';
     display: none;
-}
+} */
 
 #texInput {
     resize: none;
@@ -448,4 +453,15 @@ body {
 .delete:hover {
     background-color: var(--clr-grey-50);
     cursor: pointer;
+}
+
+.github {
+    margin-left: auto;
+    padding: 0.25rem;
+}
+
+.github > a {
+    text-decoration: none;
+    color: var(--clr-grey-600);
+    font-size: 2.5rem;
 }
