@@ -1,4 +1,4 @@
-import { selectMath } from "./mathEditor.js";
+import { closeMathEditor, selectMath } from "./mathEditor.js";
 import { openOptions } from "./utils.js";
 
 class Page {
@@ -69,11 +69,13 @@ export class PageHandler {
         page.eqs.forEach(latex => {
                 latex.render();
                 try{
-                    latex.div.addEventListener('click', (e) => page.select(e, latex));
+                    latex.div.addEventListener('click', (e) => selectMath(e, latex));
                 }catch{
                     console.log(`Unable to set event listener: ${latex.id} doesn't exist.`);
                 }
         });
+
+        closeMathEditor();
     }   
 
     save() {
