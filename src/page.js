@@ -1,6 +1,5 @@
-import { Latex } from "./latex.js";
 import { selectMath } from "./mathEditor.js";
-import { openOptions, showPlaceholder } from "./utils.js";
+import { openOptions } from "./utils.js";
 
 class Page {
     constructor(title, prefix) {

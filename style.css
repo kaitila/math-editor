@@ -180,6 +180,13 @@ body {
     margin: 0.4rem 0 !important;
 }
 
+.math-placeholder {
+    display: inline-block;
+    height: 1.75rem;
+    width: 2rem;
+    background-color: rgba(201, 40, 40, 0.498);
+}
+
 .container {
     position: absolute;
     top: 50%;
@@ -236,19 +243,6 @@ body {
     border: 1px solid var(--clr-grey-400) !important;
     /* border-radius: 0.4rem !important; */
 }
-
-/* .mq-math-mode::before {
-    content: 'Add LaTeX (Ctrl + E)';
-    display: var(--placeholder);
-    font-family: 'Poppins', serif;
-    font-size: 1.1rem;
-    width: 25rem;
-} */
-
-/* .mq-focused::before {
-    content: '';
-    display: none;
-} */
 
 #texInput {
     resize: none;
